@@ -1,0 +1,8 @@
+Analyze the operational report.
+
+Identify:
+- key issue
+- severity
+- confidence level
+
+Return JSON only.
