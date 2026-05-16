@@ -95,11 +95,11 @@ All workflow executions are stored in:
 *   `docs/` — Technical documentation and pitch materials.
 
 ## 👥 Team Members
-*   **Toheed Ahmed** — Lead Architect: Workflows & Prompts
-*   **Muhammad Hasnain** — Core Agent Development
+*   **Toheed Ahmed** — Lead Architect: Workflows & Core Agent Development
+*   **Muhammad Hasnain** — Failure Recovery & Rollback Engineer
 *   **Dua Ali** — Mobile Development & UI/UX
 *   **Abdul Ahad** — Data Strategy & Mock Data
-*   **Yasir Hafeez** — System Design & Documentation
+*   **Yasir Hafeez** — Constraint & Decision Logic Engineer
 
 ---
 
