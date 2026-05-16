@@ -1,0 +1,69 @@
+[
+{
+"id": "COMP-001",
+"customer": "Retail Partner A",
+"location": "Karachi",
+"issue": "Delivery delayed due to flooded roads",
+"severity": "High"
+},
+{
+"id": "COMP-002",
+"customer": "Electronics Store B",
+"location": "Lahore",
+"issue": "Package arrived late",
+"severity": "Medium"
+},
+{
+"id": "COMP-003",
+"customer": "Medical Supplier C",
+"location": "Islamabad",
+"issue": "Driver unreachable during delivery",
+"severity": "High"
+},
+{
+"id": "COMP-004",
+"customer": "Fashion Outlet D",
+"location": "Hyderabad",
+"issue": "Shipment delayed after storm",
+"severity": "Medium"
+},
+{
+"id": "COMP-005",
+"customer": "Wholesale Market E",
+"location": "Faisalabad",
+"issue": "Goods damaged during transport",
+"severity": "High"
+},
+{
+"id": "COMP-006",
+"customer": "Retail Partner F",
+"location": "Karachi",
+"issue": "Tracking status incorrect",
+"severity": "Low"
+},
+{
+"id": "COMP-007",
+"customer": "Food Distributor G",
+"location": "Multan",
+"issue": "Perishable goods spoiled",
+"severity": "High"
+},
+{
+"id": "COMP-008",
+"customer": "Hardware Supplier H",
+"location": "Peshawar",
+"issue": "No driver assigned for pickup",
+"severity": "Medium"
+},
+{
+"id": "COMP-009",
+"customer": "Retail Chain I",
+"location": "Quetta",
+"issue": "Delivery cancelled due to blocked routes",
+"severity": "High"
+},
+{
+"id": "COMP-010",
+"customer": "Pharmacy Group J",
+]
+
