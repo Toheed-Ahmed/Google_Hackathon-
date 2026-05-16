@@ -1,0 +1,56 @@
+[
+{
+"id": "FLT-001",
+"truck_id": "TRK-21",
+"location": "Karachi",
+"status": "Truck delayed",
+"fuel_level": "25%"
+},
+{
+"id": "FLT-002",
+"truck_id": "TRK-08",
+"location": "Lahore",
+"status": "Route completed",
+"fuel_level": "70%"
+},
+{
+"id": "FLT-003",
+"truck_id": "TRK-15",
+"location": "Islamabad",
+"status": "GPS inactive",
+"fuel_level": "50%"
+},
+{
+"id": "FLT-004",
+"truck_id": "TRK-11",
+"location": "Hyderabad",
+"status": "Rerouted due to storm",
+"fuel_level": "40%"
+},
+{
+"id": "FLT-005",
+"truck_id": "TRK-03",
+"location": "Faisalabad",
+"status": "Engine overheating",
+"fuel_level": "60%"
+},
+{
+"id": "FLT-006",
+"truck_id": "TRK-18",
+"location": "Karachi",
+"status": "Deliveries operating normally",
+"fuel_level": "80%"
+},
+{
+"id": "FLT-007",
+"truck_id": "TRK-27",
+"location": "Multan",
+"status": "Low fuel warning",
+"fuel_level": "10%"
+},
+{
+"id": "FLT-008",
+"truck_id": "TRK-30",
+"location": "Peshawar",
+]
+
