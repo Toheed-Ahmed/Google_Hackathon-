@@ -1,4 +1,4 @@
-# OpsPilot AI — Enterprise Autonomous Multi-Agent Logistics Intelligence System
+# OpsPilot AI - Enterprise Autonomous Multi-Agent Logistics Intelligence System
 
 ## System Overview
 OpsPilot AI is a production-ready, multi-agent logistics intelligence system designed to ingest unstructured data, assess real-world business impacts, and autonomously simulate execution steps (like routing updates or pricing changes). It acts as an **Agentic Decision-Making and Risk-Aware Control System**, specifically engineered to handle the complexities of supply chain disruptions without blind automation.
