@@ -1,0 +1,66 @@
+[
+
+
+{
+"id": "NEWS-001",
+"location": "Karachi",
+"headline": "Port operations slowed due to heavy rain",
+"severity": "High",
+"signal": "Container movement delayed by 6 hours"
+},
+
+
+{
+"id": "NEWS-002",
+"location": "Lahore",
+"headline": "Traffic congestion reported on M2 motorway",
+"severity": "Medium",
+"signal": "Delivery schedules may be affected"
+},
+
+
+{
+"id": "NEWS-003",
+"location": "Islamabad",
+"headline": "Fuel supply normalized across city",
+"severity": "Low",
+"signal": "Transport operations running smoothly"
+},
+{
+"id": "NEWS-004",
+"location": "Hyderabad",
+"headline": "Warehouse loading delays after power outage",
+"severity": "Medium",
+"signal": "Outbound shipments delayed"
+},
+{
+"id": "NEWS-005",
+"location": "Faisalabad",
+"headline": "Highway construction slowing cargo trucks",
+"severity": "Medium",
+"signal": "Travel times increased by 2 hours"
+},
+{
+"id": "NEWS-006",
+"location": "Karachi",
+"headline": "Weather conditions improving after overnight storm",
+"severity": "Low",
+"signal": "Road clearance operations completed"
+},
+{
+"id": "NEWS-007",
+"location": "Multan",
+"headline": "Cold storage warehouse facing cooling failure",
+"severity": "High",
+"signal": "Perishable inventory at risk"
+},
+{
+"id": "NEWS-008",
+"location": "Peshawar",
+"headline": "Truck drivers protest fuel prices",
+"severity": "High",
+"signal": "Freight movement temporarily reduced"
+},
+{
+]
+
