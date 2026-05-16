@@ -1,0 +1,75 @@
+[
+{
+"id": "WH-001",
+"warehouse": "Karachi Central",
+"issue": "Inventory shortage",
+"severity": "High"
+},
+{
+"id": "WH-002",
+"warehouse": "Lahore North",
+"issue": "Normal operations",
+"severity": "Low"
+},
+{
+"id": "WH-003",
+"warehouse": "Islamabad Hub",
+"issue": "Power outage",
+"severity": "High"
+},
+{
+"id": "WH-004",
+"warehouse": "Hyderabad Depot",
+"issue": "Delayed cargo loading",
+"severity": "Medium"
+},
+{
+"id": "WH-005",
+"warehouse": "Faisalabad Storage",
+"issue": "Overloaded inventory section",
+"severity": "Medium"
+},
+{
+"id": "WH-006",
+"warehouse": "Karachi East",
+"issue": "Operations stable",
+"severity": "Low"
+},
+{
+"id": "WH-007",
+"warehouse": "Multan Cold Storage",
+"issue": "Cooling system failure",
+"severity": "High"
+},
+{
+"id": "WH-008",
+"warehouse": "Peshawar Logistics Hub",
+"issue": "Staff shortage",
+"severity": "Medium"
+},
+{
+"id": "WH-009",
+"warehouse": "Quetta Distribution Center",
+"issue": "Shipment backlog",
+"severity": "High"
+},
+{
+"id": "WH-010",
+"warehouse": "Lahore South",
+"issue": "Dispatch systems operational",
+"severity": "Low"
+},
+{
+"id": "WH-011",
+"warehouse": "Islamabad Smart Warehouse",
+"issue": "Automation maintenance",
+"severity": "Medium"
+},
+{
+"id": "WH-012",
+"warehouse": "Karachi Port Storage",
+"issue": "Container unloading delay",
+"severity": "High"
+},
+]
+
