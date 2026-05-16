@@ -1,10 +1,18 @@
-Input
+Multi-Source Inputs
 ↓
-Content Understanding (Ingestion Agent)
+Ingestion Agent
+↓
+Conflict Detection Agent
 ↓
 Insight Agent
 ↓
 Impact Agent
+↓
+Alert Agent
+↓
+Action Intelligence Agent
+↓
+Constraint Agent
 ↓
 Validation Agent
 ↓
@@ -12,6 +20,12 @@ Decision Agent
 ↓
 Recommendation Agent
 ↓
-Simulation Agent
+Execution Agent
+↓
+Monitoring Agent
+↓
+Rollback Agent
 ↓
 Visualization Agent
+↓
+Data_Persistence_Module
