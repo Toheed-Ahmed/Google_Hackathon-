@@ -1,0 +1,78 @@
+[
+{
+"id": "WEA-001",
+"location": "Karachi",
+"weather": "Heavy Rain",
+"severity": "High",
+"status": "Several roads flooded"
+},
+{
+"id": "WEA-002",
+"location": "Lahore",
+"weather": "Clear Skies",
+"severity": "Low",
+"status": "Roads operational"
+},
+{
+"id": "WEA-003",
+"location": "Islamabad",
+"weather": "Fog",
+"severity": "High",
+"status": "Low visibility on highways"
+},
+{
+"id": "WEA-004",
+"location": "Hyderabad",
+"weather": "Thunderstorm",
+"severity": "Medium",
+"status": "Possible delivery delays"
+},
+{
+"id": "WEA-005",
+"location": "Faisalabad",
+"weather": "Heatwave",
+"severity": "Medium",
+"status": "Truck cooling systems under pressure"
+},
+{
+"id": "WEA-006",
+"location": "Karachi",
+"weather": "Weather Improved",
+"severity": "Low",
+"status": "Main roads cleared"
+},
+{
+"id": "WEA-007",
+"location": "Multan",
+"weather": "Dust Storm",
+"severity": "High",
+"status": "Transport operations slowed"
+},
+{
+"id": "WEA-008",
+"location": "Peshawar",
+"weather": "Heavy Wind",
+"severity": "Medium",
+"status": "Light cargo transport affected"
+},
+{
+"id": "WEA-009",
+"location": "Quetta",
+"weather": "Snowfall",
+"severity": "High",
+"status": "Mountain routes partially blocked"
+},
+{
+"id": "WEA-010",
+"location": "Lahore",
+"weather": "Light Rain",
+"severity": "Medium",
+"status": "Minor traffic slowdowns"
+},
+{
+"id": "WEA-011",
+"location": "Islamabad",
+"weather": "Clear Weather",
+"severity": "Low",
+]
+
