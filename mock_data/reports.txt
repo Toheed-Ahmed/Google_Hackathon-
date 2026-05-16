@@ -1,0 +1,162 @@
+[
+  {
+    "id": "OP-001",
+    "category": "Market",
+    "location": "Pakistan",
+    "issue": "Fuel price increase",
+    "severity": "High",
+    "signal": "Fuel prices increased by 18% affecting delivery costs."
+  },
+  {
+    "id": "OP-002",
+    "category": "Sales",
+    "location": "Karachi",
+    "issue": "Order drop",
+    "severity": "Medium",
+    "signal": "Karachi region orders dropped by 22%."
+  },
+  {
+    "id": "OP-003",
+    "category": "Weather",
+    "location": "Karachi",
+    "issue": "Heavy rain",
+    "severity": "Critical",
+    "signal": "Heavy rain causing delivery delays in 12 zones."
+  },
+  {
+    "id": "OP-004",
+    "category": "Infrastructure",
+    "location": "Lahore",
+    "issue": "Warehouse Capacity",
+    "severity": "High",
+    "signal": "Warehouse utilization reached 95%."
+  },
+  {
+    "id": "OP-005",
+    "category": "External",
+    "location": "Karachi Port",
+    "issue": "Port Strike",
+    "severity": "Critical",
+    "signal": "Strike delaying import shipments by 48 hours."
+  },
+  {
+    "id": "OP-006",
+    "category": "Operations",
+    "location": "Northern Routes",
+    "issue": "Truck Breakdown",
+    "severity": "Medium",
+    "signal": "Truck breakdowns increasing in northern routes."
+  },
+  {
+    "id": "OP-007",
+    "category": "Logistics",
+    "location": "Islamabad",
+    "issue": "Road Blockage",
+    "severity": "High",
+    "signal": "Road blockage near G-10 affecting dispatch."
+  },
+  {
+    "id": "OP-008",
+    "category": "Regulation",
+    "location": "National",
+    "issue": "Customs Delay",
+    "severity": "Medium",
+    "signal": "Import documentation time increased due to new rules."
+  },
+  {
+    "id": "OP-009",
+    "category": "Tech",
+    "location": "Fleet-wide",
+    "issue": "GPS Outage",
+    "severity": "Critical",
+    "signal": "GPS tracking system outage affecting fleet visibility."
+  },
+  {
+    "id": "OP-010",
+    "category": "Safety",
+    "location": "Industrial Zone",
+    "issue": "Fire Incident",
+    "severity": "Critical",
+    "signal": "Warehouse fire incident in industrial zone (simulated)."
+  },
+  {
+    "id": "OP-011",
+    "category": "Demand",
+    "location": "Nationwide",
+    "issue": "Peak Season Surge",
+    "severity": "High",
+    "signal": "Order volume exceeded fleet capacity by 35%."
+  },
+  {
+    "id": "OP-012",
+    "category": "Supply Chain",
+    "location": "Lahore",
+    "issue": "Inventory Shortage",
+    "severity": "Medium",
+    "signal": "Stock levels dropped below safety threshold."
+  },
+  {
+    "id": "OP-013",
+    "category": "Finance",
+    "location": "Pakistan",
+    "issue": "Fuel Subsidy Removal",
+    "severity": "High",
+    "signal": "Government removed fuel subsidy affecting logistics costs."
+  },
+  {
+    "id": "OP-014",
+    "category": "Transport",
+    "location": "Karachi",
+    "issue": "Traffic Congestion",
+    "severity": "Medium",
+    "signal": "Severe traffic delays impacting delivery ETAs."
+  },
+  {
+    "id": "OP-015",
+    "category": "Warehouse",
+    "location": "Multan",
+    "issue": "Cold Storage Failure",
+    "severity": "Critical",
+    "signal": "Cold chain disruption affecting perishable goods."
+  },
+  {
+    "id": "OP-016",
+    "category": "Operations",
+    "location": "Faisalabad",
+    "issue": "Driver Shortage",
+    "severity": "High",
+    "signal": "Lack of drivers causing delayed dispatch schedules."
+  },
+  {
+    "id": "OP-017",
+    "category": "System",
+    "location": "Fleet-wide",
+    "issue": "Tracking Delay",
+    "severity": "Medium",
+    "signal": "Real-time tracking data delayed by 10–15 minutes."
+  },
+  {
+    "id": "OP-018",
+    "category": "External",
+    "location": "Port Qasim",
+    "issue": "Custom Inspection Delay",
+    "severity": "High",
+    "signal": "Container clearance slowed due to inspection backlog."
+  },
+  {
+    "id": "OP-019",
+    "category": "Weather",
+    "location": "Sindh",
+    "issue": "Heatwave",
+    "severity": "Medium",
+    "signal": "Extreme heat affecting vehicle performance."
+  },
+  {
+    "id": "OP-020",
+    "category": "Risk",
+    "location": "Karachi",
+    "issue": "Theft Risk Increase",
+    "severity": "High",
+    "signal": "Rising theft incidents reported in delivery zones."
+  }
+]

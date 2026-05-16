@@ -1,0 +1,13 @@
+Input
+↓
+Insight Agent
+↓
+Impact Agent
+↓
+Decision Agent
+↓
+Execution Agent
+↓
+Evaluation Agent
+↓
+Adaptation Agent
