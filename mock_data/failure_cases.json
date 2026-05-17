@@ -5,7 +5,11 @@
     "impact": "Drivers unable to receive optimized delivery routes",
     "severity": "High",
     "detected_by": "Route Monitoring Agent",
-    "system_response": "Fallback routing activated"
+    "system_response": "Fallback routing activated",
+    "escalation_required": false,
+    "recovery_mode": "Auto-failover",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Failure detected: Routing API timeout"
   },
   {
     "id": "FAIL-002",
@@ -13,7 +17,11 @@
     "impact": "Live truck tracking unavailable",
     "severity": "Critical",
     "detected_by": "Tracking Agent",
-    "system_response": "Switch to last known coordinates"
+    "system_response": "Switch to last known coordinates",
+    "escalation_required": true,
+    "recovery_mode": "Manual Intervention",
+    "operational_risk": "High",
+    "enterprise_message": "Insufficient operational context: GPS telemetry lost"
   },
   {
     "id": "FAIL-003",
@@ -21,7 +29,11 @@
     "impact": "Warehouse stock levels inaccurate",
     "severity": "High",
     "detected_by": "Inventory Validation Agent",
-    "system_response": "Pause automated dispatch"
+    "system_response": "Pause automated dispatch",
+    "escalation_required": true,
+    "recovery_mode": "Audit",
+    "operational_risk": "High",
+    "enterprise_message": "Validation confidence below threshold: Inventory mismatch"
   },
   {
     "id": "FAIL-004",
@@ -29,7 +41,11 @@
     "impact": "AI unable to safely recommend pricing adjustments",
     "severity": "Medium",
     "detected_by": "Forecast Analysis Agent",
-    "system_response": "Escalate to human analyst"
+    "system_response": "Escalate to human analyst",
+    "escalation_required": true,
+    "recovery_mode": "Human Oversight",
+    "operational_risk": "Low",
+    "enterprise_message": "Validation confidence below threshold: Forecast unreliable"
   },
   {
     "id": "FAIL-005",
@@ -37,7 +53,11 @@
     "impact": "Orders delayed in northern region",
     "severity": "High",
     "detected_by": "Fleet Coordination Agent",
-    "system_response": "Trigger third-party logistics fallback"
+    "system_response": "Trigger third-party logistics fallback",
+    "escalation_required": false,
+    "recovery_mode": "Auto-failover",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Execution halted for safety: Fleet capacity exceeded"
   },
   {
     "id": "FAIL-006",
@@ -45,7 +65,11 @@
     "impact": "Shipment status unreliable",
     "severity": "Medium",
     "detected_by": "Verification Agent",
-    "system_response": "Request manual confirmation"
+    "system_response": "Request manual confirmation",
+    "escalation_required": true,
+    "recovery_mode": "Audit",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Conflicting instructions between systems"
   },
   {
     "id": "FAIL-007",
@@ -53,7 +77,11 @@
     "impact": "Delivery updates not sent",
     "severity": "Medium",
     "detected_by": "Notification Agent",
-    "system_response": "Queue retry mechanism"
+    "system_response": "Queue retry mechanism",
+    "escalation_required": false,
+    "recovery_mode": "Retry Queue",
+    "operational_risk": "Low",
+    "enterprise_message": "Failure detected: Notification service unreachable"
   },
   {
     "id": "FAIL-008",
@@ -61,7 +89,11 @@
     "impact": "Traffic-based route adjustment unavailable",
     "severity": "High",
     "detected_by": "Optimization Agent",
-    "system_response": "Restore previous stable route"
+    "system_response": "Restore previous stable route",
+    "escalation_required": false,
+    "recovery_mode": "Rollback",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Execution halted for safety: Rerouting optimization failed"
   },
   {
     "id": "FAIL-009",
@@ -69,7 +101,11 @@
     "impact": "Cold-chain integrity at risk",
     "severity": "Critical",
     "detected_by": "IoT Monitoring Agent",
-    "system_response": "Freeze sensitive dispatch operations"
+    "system_response": "Freeze sensitive dispatch operations",
+    "escalation_required": true,
+    "recovery_mode": "Emergency Halt",
+    "operational_risk": "Critical",
+    "enterprise_message": "Incomplete telemetry: Temperature sensor offline"
   },
   {
     "id": "FAIL-010",
@@ -77,6 +113,82 @@
     "impact": "Risk of double shipment",
     "severity": "Critical",
     "detected_by": "Dispatch Validation Agent",
-    "system_response": "Cancel duplicate dispatch automatically"
+    "system_response": "Cancel duplicate dispatch automatically",
+    "escalation_required": false,
+    "recovery_mode": "Auto-Resolution",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Corrupted operational payload: Duplicate orders"
+  },
+  {
+    "id": "FAIL-011",
+    "failure": "Missing operational data in API response",
+    "impact": "Cannot calculate ETA",
+    "severity": "Medium",
+    "detected_by": "Ingestion Agent",
+    "system_response": "Use default baseline estimates",
+    "escalation_required": false,
+    "recovery_mode": "Fallback Baseline",
+    "operational_risk": "Low",
+    "enterprise_message": "Insufficient operational context: Missing ETA data"
+  },
+  {
+    "id": "FAIL-012",
+    "failure": "Unclear user instructions",
+    "impact": "NLP parsing failure for manual override",
+    "severity": "Low",
+    "detected_by": "Validation Agent",
+    "system_response": "Request clarification from user",
+    "escalation_required": true,
+    "recovery_mode": "User Prompt",
+    "operational_risk": "Low",
+    "enterprise_message": "Unclear user instructions"
+  },
+  {
+    "id": "FAIL-013",
+    "failure": "Invalid or corrupted data format",
+    "impact": "Cannot process warehouse ingestion payload",
+    "severity": "High",
+    "detected_by": "Ingestion Agent",
+    "system_response": "Reject payload and alert source system",
+    "escalation_required": true,
+    "recovery_mode": "System Quarantine",
+    "operational_risk": "High",
+    "enterprise_message": "Corrupted operational payload"
+  },
+  {
+    "id": "FAIL-014",
+    "failure": "Unreadable external reports",
+    "impact": "Missing market news context",
+    "severity": "Low",
+    "detected_by": "Insight Agent",
+    "system_response": "Proceed without external context",
+    "escalation_required": false,
+    "recovery_mode": "Degraded Mode",
+    "operational_risk": "Low",
+    "enterprise_message": "Unreadable external reports"
+  },
+  {
+    "id": "FAIL-015",
+    "failure": "Synchronization mismatch",
+    "impact": "State drift between central database and edge node",
+    "severity": "Critical",
+    "detected_by": "Conflict Detection Agent",
+    "system_response": "Force resync from central authority",
+    "escalation_required": true,
+    "recovery_mode": "Full Sync",
+    "operational_risk": "Critical",
+    "enterprise_message": "Synchronization mismatch detected"
+  },
+  {
+    "id": "FAIL-016",
+    "failure": "Delayed infrastructure response",
+    "impact": "Execution latency exceeding SLAs",
+    "severity": "High",
+    "detected_by": "Monitoring Agent",
+    "system_response": "Shift traffic to secondary cluster",
+    "escalation_required": false,
+    "recovery_mode": "Auto-failover",
+    "operational_risk": "Moderate",
+    "enterprise_message": "Delayed infrastructure response"
   }
 ]

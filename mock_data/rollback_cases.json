@@ -4,69 +4,194 @@
     "action": "Increase delivery surcharge",
     "failure_result": "Customer complaints increased sharply",
     "rollback_action": "Restore previous pricing",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Sentiment Drop",
+    "rollback_priority": "High",
+    "approval_required": false,
+    "restored_state": "Pricing Baseline v1",
+    "rollback_confidence": "99",
+    "operator_alert": "Autonomous execution reverted: Surcharge cancelled"
   },
   {
     "id": "ROLLBACK-002",
     "action": "Auto-reroute delivery trucks",
     "failure_result": "Drivers received invalid coordinates",
     "rollback_action": "Revert to previous verified route",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Unsafe operation detected",
+    "rollback_priority": "Critical",
+    "approval_required": false,
+    "restored_state": "Routing Baseline v1",
+    "rollback_confidence": "95",
+    "operator_alert": "Unsafe operational state detected: Routing reverted"
   },
   {
     "id": "ROLLBACK-003",
     "action": "Reduce warehouse staffing automatically",
     "failure_result": "Order processing delays increased",
     "rollback_action": "Restore original staffing schedule",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "SLA Breach",
+    "rollback_priority": "High",
+    "approval_required": true,
+    "restored_state": "Staffing Baseline",
+    "rollback_confidence": "90",
+    "operator_alert": "Rollback authorization required: Staffing adjustments"
   },
   {
     "id": "ROLLBACK-004",
     "action": "Enable dynamic fuel surcharge",
     "failure_result": "Pricing calculation inconsistency detected",
     "rollback_action": "Disable automated surcharge system",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Pricing Anomaly",
+    "rollback_priority": "High",
+    "approval_required": false,
+    "restored_state": "Fixed Pricing",
+    "rollback_confidence": "98",
+    "operator_alert": "Unstable pricing execution: Reverting"
   },
   {
     "id": "ROLLBACK-005",
     "action": "Automatic dispatch reassignment",
     "failure_result": "Shipment duplication risk detected",
     "rollback_action": "Cancel reassigned dispatch orders",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Constraint Violation",
+    "rollback_priority": "Critical",
+    "approval_required": false,
+    "restored_state": "Initial Dispatch State",
+    "rollback_confidence": "99",
+    "operator_alert": "Unsafe dispatch allocation: Cancelled"
   },
   {
     "id": "ROLLBACK-006",
     "action": "AI-generated inventory reorder",
     "failure_result": "Supplier stock data outdated",
     "rollback_action": "Pause reorder request",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Data Mismatch",
+    "rollback_priority": "Medium",
+    "approval_required": true,
+    "restored_state": "Hold State",
+    "rollback_confidence": "95",
+    "operator_alert": "Rollback authorization required: Inventory reorder"
   },
   {
     "id": "ROLLBACK-007",
     "action": "Predictive route optimization",
     "failure_result": "ETA accuracy dropped below threshold",
     "rollback_action": "Switch to static routing mode",
-    "human_notification": false
+    "human_notification": false,
+    "rollback_trigger": "Performance Degradation",
+    "rollback_priority": "Medium",
+    "approval_required": false,
+    "restored_state": "Static Routes",
+    "rollback_confidence": "92",
+    "operator_alert": "Autonomous execution reverted: Predictive routes"
   },
   {
     "id": "ROLLBACK-008",
     "action": "Customer auto-notification campaign",
     "failure_result": "Message delivery service unavailable",
     "rollback_action": "Queue notifications for retry",
-    "human_notification": false
+    "human_notification": false,
+    "rollback_trigger": "Service Timeout",
+    "rollback_priority": "Low",
+    "approval_required": false,
+    "restored_state": "Queue State",
+    "rollback_confidence": "100",
+    "operator_alert": "Recovery workflow initiated: Notification retry"
   },
   {
     "id": "ROLLBACK-009",
     "action": "Warehouse load balancing automation",
     "failure_result": "Dock congestion increased",
     "rollback_action": "Restore previous warehouse allocation",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "Congestion Metric Spike",
+    "rollback_priority": "High",
+    "approval_required": false,
+    "restored_state": "Baseline Allocation",
+    "rollback_confidence": "96",
+    "operator_alert": "Degraded system state recovery: Load balancing reverted"
   },
   {
     "id": "ROLLBACK-010",
     "action": "Autonomous shipment prioritization",
     "failure_result": "Critical medical shipment delayed",
     "rollback_action": "Manually prioritize emergency shipment",
-    "human_notification": true
+    "human_notification": true,
+    "rollback_trigger": "SLA Critical Alert",
+    "rollback_priority": "Critical",
+    "approval_required": false,
+    "restored_state": "Emergency Priority Mode",
+    "rollback_confidence": "99",
+    "operator_alert": "Human escalation activated: Medical shipment"
+  },
+  {
+    "id": "ROLLBACK-011",
+    "action": "Deploy edge node software update",
+    "failure_result": "Update corrupted operational payload",
+    "rollback_action": "Revert to previous firmware version",
+    "human_notification": true,
+    "rollback_trigger": "Payload Corruption",
+    "rollback_priority": "Critical",
+    "approval_required": false,
+    "restored_state": "Firmware v1.2",
+    "rollback_confidence": "99",
+    "operator_alert": "Recovery after failed deployment: Firmware reverted"
+  },
+  {
+    "id": "ROLLBACK-012",
+    "action": "Dynamic weather rerouting",
+    "failure_result": "Incorrect rerouting propagation",
+    "rollback_action": "Revert to standard hazard avoidance",
+    "human_notification": true,
+    "rollback_trigger": "Propagation Error",
+    "rollback_priority": "High",
+    "approval_required": false,
+    "restored_state": "Standard Hazard Rules",
+    "rollback_confidence": "94",
+    "operator_alert": "Incorrect rerouting propagation: Reverting"
+  },
+  {
+    "id": "ROLLBACK-013",
+    "action": "Automated vendor payment",
+    "failure_result": "Wrong execution step already committed",
+    "rollback_action": "Initiate payment cancellation protocol",
+    "human_notification": true,
+    "rollback_trigger": "Execution Error",
+    "rollback_priority": "Critical",
+    "approval_required": true,
+    "restored_state": "Payment Pending",
+    "rollback_confidence": "100",
+    "operator_alert": "Rollback authorization required: Payment cancellation"
+  },
+  {
+    "id": "ROLLBACK-014",
+    "action": "AI-driven cluster failover",
+    "failure_result": "Autonomous execution instability",
+    "rollback_action": "Failback to primary cluster manually",
+    "human_notification": true,
+    "rollback_trigger": "System Instability",
+    "rollback_priority": "Critical",
+    "approval_required": false,
+    "restored_state": "Primary Cluster Active",
+    "rollback_confidence": "98",
+    "operator_alert": "Autonomous execution instability: Failing back"
+  },
+  {
+    "id": "ROLLBACK-015",
+    "action": "Multi-regional supply chain realignment",
+    "failure_result": "Cascading workflow failure",
+    "rollback_action": "Trigger global master undo",
+    "human_notification": true,
+    "rollback_trigger": "Cascading Failure",
+    "rollback_priority": "Critical",
+    "approval_required": true,
+    "restored_state": "Global State Restored",
+    "rollback_confidence": "90",
+    "operator_alert": "Cascading workflow failure: Master undo initiated"
   }
 ]
