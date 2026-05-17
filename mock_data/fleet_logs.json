@@ -1,0 +1,66 @@
+[
+    {
+        "id": "FLT-001",
+        "category": "Operations",
+        "location": "Karachi",
+        "issue": "Transit Delay",
+        "severity": "Medium",
+        "signal": "Fleet vehicle TRK-21 is currently delayed. Fuel level at 25%."
+    },
+    {
+        "id": "FLT-002",
+        "category": "Operations",
+        "location": "Lahore",
+        "issue": "Normal Operations",
+        "severity": "Low",
+        "signal": "Fleet vehicle TRK-08 successfully completed route. Fuel level at 70%."
+    },
+    {
+        "id": "FLT-003",
+        "category": "Tech",
+        "location": "Islamabad",
+        "issue": "GPS Inactive",
+        "severity": "High",
+        "signal": "Fleet vehicle TRK-15 reporting an inactive GPS module. Fuel level at 50%."
+    },
+    {
+        "id": "FLT-004",
+        "category": "Operations",
+        "location": "Hyderabad",
+        "issue": "Rerouted Fleet",
+        "severity": "Medium",
+        "signal": "Fleet vehicle TRK-11 actively rerouted due to storm metrics. Fuel level at 40%."
+    },
+    {
+        "id": "FLT-005",
+        "category": "Operations",
+        "location": "Faisalabad",
+        "issue": "Engine Overheating",
+        "severity": "High",
+        "signal": "Fleet vehicle TRK-03 halted with engine overheating signals. Fuel level at 60%."
+    },
+    {
+        "id": "FLT-006",
+        "category": "Operations",
+        "location": "Karachi",
+        "issue": "Normal Operations",
+        "severity": "Low",
+        "signal": "Fleet vehicle TRK-18 operating normally across delivery zones. Fuel level at 80%."
+    },
+    {
+        "id": "FLT-007",
+        "category": "Operations",
+        "location": "Multan",
+        "issue": "Low Fuel Warning",
+        "severity": "High",
+        "signal": "Fleet vehicle TRK-27 triggered a critical low fuel alert at 10% capacity."
+    },
+    {
+        "id": "FLT-008",
+        "category": "Operations",
+        "location": "Peshawar",
+        "issue": "Unassigned Asset",
+        "severity": "Medium",
+        "signal": "Fleet vehicle TRK-30 is currently unassigned or static at transit terminal."
+    }
+]

@@ -68,6 +68,69 @@ Rollback Agent
 Visualization Agent
 ```
 
+
+## 🔄 OpsPilot AI — 15-Stage System Workflow Pipeline
+
+1. **5+ Multi-Source Inputs** (News, Weather, Fleet, Warehouse, Complaints)
+2. **Ingestion Agent** (Normalizes and structures concurrent data streams)
+3. **Conflict Detection Agent** (Resolves cross-source contradictions)
+4. **Alert Agent** (Detects cascading supply chain risks)
+5. **Insight Agent** (Extracts core operational intelligence)
+6. **Impact Agent** (Projects financial and operational SLA bleed rates)
+7. **Constraint Agent** (Applies real-world resource restrictions)
+8. **Validation Agent** (Audits execution safety and legal compliance)
+9. **Decision Agent** (Selects optimal mitigation strategy)
+10. **Recommendation Agent** (Builds actionable parallel execution blueprints)
+11. **Execution Agent** (Fires ACTIVE/SHADOW parallel API payloads)
+12. **Monitoring Agent** (Polls post-execution system telemetry)
+13. **Rollback Agent** (Reverts unstable system states if necessary)
+14. **Visualization Agent** (Renders Dashboard & Sustainability Metrics)
+15. **Data Persistence Module** (Appends secure JSON execution trace)
+
+---
+
+## 📊 Standardized JSON Data Schemas
+
+### 1. `weather.json` / `fleet.json` / `warehouse.json` / `customer_complaints.json`
+*(Standardized Input Event Schema)*
+```json
+[
+  {
+    "id": "String (e.g., 'WEA-001', 'FLT-001', 'WH-001', 'COMP-001')",
+    "category": "String (e.g., 'Weather', 'Operations', 'Infrastructure', 'Sales')",
+    "location": "String (e.g., 'Karachi', 'Lahore')",
+    "issue": "String (e.g., 'Heavy Rain', 'Transit Delay', 'Inventory Shortage')",
+    "severity": "String ('Low', 'Medium', 'High', 'Critical')",
+    "signal": "String (Detailed description of the operational event)"
+  }
+]
+
+
+```
+### 2 .`constraints.json`
+(Enterprise Resource Ruleset Schema)
+```json
+[
+  {
+    "id": "String (e.g., 'CONSTRAINT-001')",
+    "scenario": "String (e.g., 'Fuel Budget Shortage')",
+    "fuel_budget_pkr": "Number (e.g., 50000)",
+    "available_trucks": "Number (e.g., 12)",
+    "available_drivers": "Number (e.g., 8)",
+    "delivery_deadline_hours": "Number (e.g., 4)",
+    "max_reroute_distance_km": "Number (e.g., 25)",
+    "warehouse_capacity_percent": "Number (e.g., 70)",
+    "priority_region": "String (e.g., 'Karachi')",
+    "sla_time_hours": "Number (e.g., 6)",
+    "fuel_shortage": "Boolean (true/false)",
+    "notes": "String (Operational directive context)"
+  }
+]
+```
+
+
+
+
 ## 🚨 Alert & Action Intelligence System
 - Alert Agent detects system-wide logistics instability BEFORE execution
 - Generates dynamic, context-aware crisis alerts (no static messages)
@@ -82,10 +145,6 @@ All workflow executions are stored in:
 - Includes full agent-by-agent decision history
 - Supports audit-ready AI transparency for evaluation
 
-## Architecture & Communication Protocols
-- **Strict JSON Passing:** Agents communicate exclusively via structured JSON objects. The output of one agent becomes the *exact* input for the next agent. This ensures a clean, unbreakable chain of thought and eliminates plain text drift.
-- **Failure Handling & Fallback Logic:** The Validation Agent monitors the pipeline for ambiguity or low confidence. If `confidence < medium` or `fallback_required: true`, the Decision Agent bypasses automated system changes and safely defaults to human escalation.
-- **Real-World Simulation:** The Simulation Agent prevents direct production harm by outputting mock API calls (e.g., `POST /api/routing/geofence`) and expected systemic deltas. This proves the logic works in a controlled, hackathon-ready sandbox.
 
 ## 📂 Project Structure
 *   `workflows/` — Core Agentic logic and action-execution flows.

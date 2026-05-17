@@ -1,0 +1,90 @@
+[
+    {
+        "id": "WEA-001",
+        "category": "Weather",
+        "location": "Karachi",
+        "issue": "Heavy Rain",
+        "severity": "High",
+        "signal": "Heavy Rain causing several roads to be flooded."
+    },
+    {
+        "id": "WEA-002",
+        "category": "Weather",
+        "location": "Lahore",
+        "issue": "Clear Skies",
+        "severity": "Low",
+        "signal": "Clear Skies; all major roads are operational."
+    },
+    {
+        "id": "WEA-003",
+        "category": "Weather",
+        "location": "Islamabad",
+        "issue": "Fog",
+        "severity": "High",
+        "signal": "Dense fog causing low visibility conditions on highways."
+    },
+    {
+        "id": "WEA-004",
+        "category": "Weather",
+        "location": "Hyderabad",
+        "issue": "Thunderstorm",
+        "severity": "Medium",
+        "signal": "Active thunderstorm; possible delivery delays expected."
+    },
+    {
+        "id": "WEA-005",
+        "category": "Weather",
+        "location": "Faisalabad",
+        "issue": "Heatwave",
+        "severity": "Medium",
+        "signal": "Severe heatwave putting transit truck cooling systems under pressure."
+    },
+    {
+        "id": "WEA-006",
+        "category": "Weather",
+        "location": "Karachi",
+        "issue": "Weather Improved",
+        "severity": "Low",
+        "signal": "Weather conditions improved; main urban roads have been cleared."
+    },
+    {
+        "id": "WEA-007",
+        "category": "Weather",
+        "location": "Multan",
+        "issue": "Dust Storm",
+        "severity": "High",
+        "signal": "Severe dust storm slowing down regional transport operations."
+    },
+    {
+        "id": "WEA-008",
+        "category": "Weather",
+        "location": "Peshawar",
+        "issue": "Heavy Wind",
+        "severity": "Medium",
+        "signal": "High winds affecting light cargo transport stability."
+    },
+    {
+        "id": "WEA-009",
+        "category": "Weather",
+        "location": "Quetta",
+        "issue": "Snowfall",
+        "severity": "High",
+        "signal": "Heavy snowfall; mountain transit routes are partially blocked."
+    },
+    {
+        "id": "WEA-010",
+        "category": "Weather",
+        "location": "Lahore",
+        "issue": "Light Rain",
+        "severity": "Medium",
+        "signal": "Light rain leading to minor localized traffic slowdowns."
+    },
+    {
+        "id": "WEA-011",
+        "category": "Weather",
+        "location": "Islamabad",
+        "issue": "Clear Weather",
+        "severity": "Low",
+        "signal": "Clear weather conditions; operations running at baseline values."
+    }
+]
