@@ -27,43 +27,13 @@ Using a single LLM for complex operations is prone to hallucinations, blending c
 
 
 ## 🧠 Key Enhancements (Latest Version)
-
-- Fully semantic multi-source reasoning engine (no hardcoded keyword logic)
-- Enterprise-grade 15-Agent autonomous orchestration workflow
-- Real-time Alert Agent for dynamic crisis detection (pre + post execution)
-- Action-Oriented Intelligence layer for execution tracking and operational state awareness
-- Conflict Detection Agent for cross-source contradiction analysis
-- Constraint-Aware Decision Intelligence using real-world logistics limitations
-- Autonomous multi-strategy decision engine with risk-aware reasoning
-- Parallel execution engine supporting 3–5 simultaneous logistics operations
-- Dynamic rollback and recovery framework for unsafe or failed executions
-- Monitoring Agent with continuous telemetry validation and instability detection
-- Strict JSON state contracts across all agents for full traceability
-- End-to-end execution trace logging inside `execution_trace.json`
-- Live Terminal Command streaming for every agent stage
-- Shadow vs Active Mode execution validation system
-- Sustainability & Carbon Footprint Intelligence metrics
-- Before vs After operational visualization engine
-- Cross-region supply chain propagation analysis
-- Financial, operational, trade, and infrastructure impact modeling
-- Multi-source ingestion support:
-  - fleet logs
-  - weather alerts
-  - warehouse reports
-  - customer complaints
-  - market/news intelligence
-  - operational constraints
-  - rollback/failure scenarios
-- Advanced failure handling and automated rollback protection
-- Human escalation fallback pathway for low-confidence execution
-- Google Antigravity orchestration integration with synchronized workflow execution
-- Real-time logistics intelligence dashboard compatibility (Flutter UI ready)
-- Enterprise control-tower style architecture for supply chain operations
-- Adaptive execution modes:
-  - SHADOW mode (safe simulation)
-  - ACTIVE mode (live operational execution)
-- Mock operational APIs and autonomous routing simulation
-- Production-style logistics anomaly detection and mitigation system
+- Fully semantic multi-source reasoning (no keyword-based logic)
+- Real-time Alert Agent for crisis detection (pre and post execution)
+- Action-Oriented Intelligence layer for autonomous execution tracking
+- Strict JSON state contracts across all agents
+- Parallel execution engine (3–5 simultaneous logistics actions)
+- Rollback-safe enterprise decision system
+- Antigravity orchestration with full trace logging
 
 ## Full Agent Workflow
 ```text
