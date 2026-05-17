@@ -1,0 +1,345 @@
+import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'flow_screen.dart';
+
+class InputScreen extends StatefulWidget {
+  const InputScreen({super.key});
+
+  @override
+  State<InputScreen> createState() => _InputScreenState();
+}
+
+class _InputScreenState extends State<InputScreen> {
+  final TextEditingController _controller = TextEditingController();
+  String? _selectedFileName;
+  
+  bool _isAutonomousActiveMode = true; 
+  bool _hasActiveSystemAlert = false;
+  String _alertMessage = "";
+  String _alertLevel = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() => setState(() {}));
+    _checkSystemAlertsFromJSON();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _checkSystemAlertsFromJSON() async {
+    try {
+      final String response = await rootBundle.loadString('assets/execution_trace.json');
+      final List<dynamic> data = json.decode(response);
+      final activeWorkflow = data.firstWhere((w) => w['workflow_id'] == 'OP-SYNC-9003', orElse: () => data[0]);
+      final trace = activeWorkflow['execution_trace'] as List<dynamic>;
+      final alertAgent = trace.firstWhere((element) => element['agent'] == 'Alert Agent', orElse: () => null);
+      
+      if (alertAgent != null && alertAgent['output']['alert_generated'] == true) {
+        setState(() {
+          _hasActiveSystemAlert = true;
+          _alertMessage = alertAgent['output']['alert_message'] ?? "Multi-domain risk cascade detected.";
+          _alertLevel = alertAgent['output']['alert_level'] ?? "CRITICAL";
+        });
+      }
+    } catch (e) {
+      debugPrint("Alert validation engine mismatch: $e");
+    }
+  }
+
+  Future<void> _pickFile() async {
+    try {
+       FilePickerResult? result = await FilePicker.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'csv', 'txt', 'docx'],
+      );
+
+      if (result != null) {
+        setState(() {
+          _selectedFileName = result.files.single.name;
+          String fn = _selectedFileName!.toLowerCase();
+          if (fn.contains('rain') || fn.contains('flood') || fn.contains('weather')) {
+            _controller.text = "Karachi Weather Alert: Severe rainstorm causing flash floods. Fleet paralyzed in Southern Zone. Logistics nodes failing.";
+          } else if (fn.contains('port') || fn.contains('strike')) {
+            _controller.text = "Port strike alert: All clearances stalled at primary maritime terminals. Supply chain disruption imminent.";
+          } else if (fn.contains('fuel') || fn.contains('price')) {
+            _controller.text = "Macro-economic shift: Fuel prices spike by 18% nationwide, damaging variable transport margins.";
+          } else {
+            _controller.text = "Ingesting external data report [$_selectedFileName]: High-density network infrastructure anomaly discovered.";
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("File picking exception: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isInputEmpty = _controller.text.trim().isEmpty;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF030712), // Deeper premium gray/black
+      appBar: AppBar(
+        title: const Text('OpsPilot AI Console',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, letterSpacing: 1.5, fontSize: 15)),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // --- PRE-EXECUTION THREAT BANNER ---
+              if (_hasActiveSystemAlert) ...[
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF7F1D1D).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFFEF4444).withOpacity(0.25)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.gpp_bad_rounded, color: Color(0xFFF87171), size: 22),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text("SYSTEM DISRUPTION ALERT • $_alertLevel", 
+                                  style: const TextStyle(color: Color(0xFFF87171), fontWeight: FontWeight.w800, fontSize: 10, letterSpacing: 1.2)),
+                                const Spacer(),
+                                const SizedBox(width: 8, height: 8, child: CircularProgressIndicator(strokeWidth: 1.5, color: Color(0xFFF87171))),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Text(_alertMessage, style: const TextStyle(color: Color(0xFFE5E7EB), fontSize: 13, height: 1.5)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+
+              // --- COMPLIANCE FLOW SWITCH ---
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1F2937).withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: Colors.white.withOpacity(0.05)),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: _isAutonomousActiveMode ? const Color(0xFFD97706).withOpacity(0.1) : const Color(0xFF2563EB).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(
+                        _isAutonomousActiveMode ? Icons.bolt_rounded : Icons.shield_rounded,
+                        color: _isAutonomousActiveMode ? const Color(0xFFF59E0B) : const Color(0xFF60A5FA),
+                        size: 20,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _isAutonomousActiveMode ? "Autonomous Action Engine" : "Shadow Co-Pilot Compliance",
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            _isAutonomousActiveMode ? "Direct orchestration without manual pipeline locks." : "AI generates mitigation routes holding execution signatures.",
+                            style: TextStyle(color: Colors.grey[400], fontSize: 11, height: 1.3),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Switch(
+                      value: _isAutonomousActiveMode,
+                      activeColor: const Color(0xFFF59E0B),
+                      activeTrackColor: const Color(0xFFF59E0B).withOpacity(0.15),
+                      inactiveThumbColor: const Color(0xFF60A5FA),
+                      inactiveTrackColor: const Color(0xFF60A5FA).withOpacity(0.15),
+                      onChanged: (val) => setState(() => _isAutonomousActiveMode = val),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 35),
+
+              const Text('Anomalous Stream Ingestion', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5)),
+              const SizedBox(height: 6),
+              Text('Deploy multi-agent semantic synthesis for live incident mitigations.', style: TextStyle(color: Colors.grey[400], fontSize: 13)),
+              const SizedBox(height: 28),
+
+              // --- TEXT AREA PANEL ---
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF111827),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: Colors.white.withOpacity(0.04)),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.hub_outlined, color: Color(0xFF60A5FA), size: 16),
+                          const SizedBox(width: 10),
+                          const Text("Data Ingestion Stream", style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 13)),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.cloud_upload_outlined, color: Color(0xFF60A5FA), size: 20),
+                            onPressed: _pickFile,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(color: Colors.white10, height: 1),
+                    TextField(
+                      controller: _controller,
+                      maxLines: 5,
+                      style: const TextStyle(color: Colors.white, fontSize: 14, height: 1.5),
+                      cursorColor: const Color(0xFF3B82F6),
+                      decoration: InputDecoration(
+                        hintText: "Paste logistics logs, telemetry inputs, or click upload...",
+                        hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        contentPadding: const EdgeInsets.all(22),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              if (_selectedFileName != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 14),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3B82F6).withOpacity(0.06),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0xFF3B82F6).withOpacity(0.2)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.insert_drive_file_outlined, color: Color(0xFF60A5FA), size: 14),
+                        const SizedBox(width: 8),
+                        Text(_selectedFileName!, style: const TextStyle(color: Color(0xFF60A5FA), fontSize: 12, fontWeight: FontWeight.w600)),
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () => setState(() { _selectedFileName = null; _controller.clear(); }),
+                          child: const Icon(Icons.cancel_outlined, color: Color(0xFF60A5FA), size: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+              const SizedBox(height: 35),
+              const Text('SIMULATION WORKLOAD TARGETS', style: TextStyle(color: Color.fromARGB(95, 0, 0, 0), fontWeight: FontWeight.w800, fontSize: 11, letterSpacing: 1.5)),
+              const SizedBox(height: 14),
+              
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildScenarioChip('Cascading Floods', "Heavy Rain & Flooding paralyzing fleet transit. Karachi Central warehouse reporting stock failures."),
+                  _buildScenarioChip('Port Strike Logistics', "Major container clearance strike. Southern region logistics blocked."),
+                  _buildScenarioChip('Fuel Margin Strain', "Macro price index surge of 18% forcing variable expense spikes."),
+                ],
+              ),
+
+              const SizedBox(height: 45),
+              
+              SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: ElevatedButton(
+                  onPressed: isInputEmpty 
+                    ? null 
+                    : () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FlowScreen(
+                              userInput: _controller.text, 
+                              isAutonomousMode: _isAutonomousActiveMode
+                            ),
+                          ),
+                        );
+                      },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    disabledBackgroundColor: Colors.white.withOpacity(0.02),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    'Initialize Pipeline Engine',
+                    style: TextStyle(color: isInputEmpty ? Colors.white24 : Colors.white, fontSize: 15, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+Widget _buildScenarioChip(String label, String text) {
+    return ActionChip(
+      label: Text(label),
+      labelStyle: const TextStyle(
+        color: Colors.white70, // Subtly crisp white text
+        fontSize: 12, 
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.2
+      ),
+      // 🎨 ULTRA-DARKISH OVERHAUL: Pure solid background with zero light gray ash
+      backgroundColor: const Color(0xFF111827).withOpacity(0.85), 
+      disabledColor: const Color(0xFF030712),
+      
+      // BORDERS: Intentionally thinned out and darkened borders
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), 
+        side: BorderSide(
+          color: Colors.white.withOpacity(0.04), // Darkened border line
+          width: 1,
+        )
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      onPressed: () => setState(() { _selectedFileName = null; _controller.text = text; }),
+    );
+  }
+}
+
+
+
+
