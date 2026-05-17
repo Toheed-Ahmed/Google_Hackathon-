@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ROLLBACK-001",
+    "action": "Increase delivery surcharge",
+    "failure_result": "Customer complaints increased sharply",
+    "rollback_action": "Restore previous pricing",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-002",
+    "action": "Auto-reroute delivery trucks",
+    "failure_result": "Drivers received invalid coordinates",
+    "rollback_action": "Revert to previous verified route",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-003",
+    "action": "Reduce warehouse staffing automatically",
+    "failure_result": "Order processing delays increased",
+    "rollback_action": "Restore original staffing schedule",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-004",
+    "action": "Enable dynamic fuel surcharge",
+    "failure_result": "Pricing calculation inconsistency detected",
+    "rollback_action": "Disable automated surcharge system",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-005",
+    "action": "Automatic dispatch reassignment",
+    "failure_result": "Shipment duplication risk detected",
+    "rollback_action": "Cancel reassigned dispatch orders",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-006",
+    "action": "AI-generated inventory reorder",
+    "failure_result": "Supplier stock data outdated",
+    "rollback_action": "Pause reorder request",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-007",
+    "action": "Predictive route optimization",
+    "failure_result": "ETA accuracy dropped below threshold",
+    "rollback_action": "Switch to static routing mode",
+    "human_notification": false
+  },
+  {
+    "id": "ROLLBACK-008",
+    "action": "Customer auto-notification campaign",
+    "failure_result": "Message delivery service unavailable",
+    "rollback_action": "Queue notifications for retry",
+    "human_notification": false
+  },
+  {
+    "id": "ROLLBACK-009",
+    "action": "Warehouse load balancing automation",
+    "failure_result": "Dock congestion increased",
+    "rollback_action": "Restore previous warehouse allocation",
+    "human_notification": true
+  },
+  {
+    "id": "ROLLBACK-010",
+    "action": "Autonomous shipment prioritization",
+    "failure_result": "Critical medical shipment delayed",
+    "rollback_action": "Manually prioritize emergency shipment",
+    "human_notification": true
+  }
+]

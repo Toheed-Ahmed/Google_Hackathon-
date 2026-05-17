@@ -1,0 +1,98 @@
+[
+    {
+        "id": "WH-001",
+        "category": "Infrastructure",
+        "location": "Karachi Central",
+        "issue": "Inventory Shortage",
+        "severity": "High",
+        "signal": "Critical inventory shortage detected at Karachi Central facility."
+    },
+    {
+        "id": "WH-002",
+        "category": "Infrastructure",
+        "location": "Lahore North",
+        "issue": "Normal Operations",
+        "severity": "Low",
+        "signal": "Lahore North node reporting normal operating conditions."
+    },
+    {
+        "id": "WH-003",
+        "category": "Infrastructure",
+        "location": "Islamabad Hub",
+        "issue": "Power Outage",
+        "severity": "High",
+        "signal": "Total facility power outage reported at Islamabad Hub."
+    },
+    {
+        "id": "WH-004",
+        "category": "Infrastructure",
+        "location": "Hyderabad Depot",
+        "issue": "Delayed Loading",
+        "severity": "Medium",
+        "signal": "Delayed cargo loading operations at the Hyderabad Depot location."
+    },
+    {
+        "id": "WH-005",
+        "category": "Infrastructure",
+        "location": "Faisalabad Storage",
+        "issue": "Overloaded Capacity",
+        "severity": "Medium",
+        "signal": "Overloaded inventory storage allocation detected in Faisalabad sector."
+    },
+    {
+        "id": "WH-006",
+        "category": "Infrastructure",
+        "location": "Karachi East",
+        "issue": "Normal Operations",
+        "severity": "Low",
+        "signal": "Karachi East warehouse operations remain stable and clear."
+    },
+    {
+        "id": "WH-007",
+        "category": "Infrastructure",
+        "location": "Multan Cold Storage",
+        "issue": "Cooling Failure",
+        "severity": "High",
+        "signal": "Cooling system hardware failure logged at Multan Cold Storage."
+    },
+    {
+        "id": "WH-008",
+        "category": "Infrastructure",
+        "location": "Peshawar Hub",
+        "issue": "Staff Shortage",
+        "severity": "Medium",
+        "signal": "Peshawar Logistics Hub reporting operational staff shortages."
+    },
+    {
+        "id": "WH-009",
+        "category": "Infrastructure",
+        "location": "Quetta DC",
+        "issue": "Shipment Backlog",
+        "severity": "High",
+        "signal": "Severe inbound/outbound shipment backlog at Quetta Distribution Center."
+    },
+    {
+        "id": "WH-010",
+        "category": "Infrastructure",
+        "location": "Lahore South",
+        "issue": "Normal Operations",
+        "severity": "Low",
+        "signal": "Lahore South dispatch tracking systems fully operational."
+    },
+    {
+        "id": "WH-011",
+        "category": "Infrastructure",
+        "location": "Islamabad Smart WH",
+        "issue": "Automation Maintenance",
+        "severity": "Medium",
+        "signal": "Scheduled automation system maintenance active at Islamabad Smart Warehouse."
+    },
+    {
+        "id": "WH-012",
+        "category": "Infrastructure",
+        "location": "Karachi Port Storage",
+        "issue": "Unloading Delay",
+        "severity": "High",
+        "signal": "Container unloading delays occurring at Karachi Port Storage terminal."
+    }
+]

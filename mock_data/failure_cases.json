@@ -1,0 +1,82 @@
+[
+  {
+    "id": "FAIL-001",
+    "failure": "Routing API timeout",
+    "impact": "Drivers unable to receive optimized delivery routes",
+    "severity": "High",
+    "detected_by": "Route Monitoring Agent",
+    "system_response": "Fallback routing activated"
+  },
+  {
+    "id": "FAIL-002",
+    "failure": "GPS outage in delivery zone",
+    "impact": "Live truck tracking unavailable",
+    "severity": "Critical",
+    "detected_by": "Tracking Agent",
+    "system_response": "Switch to last known coordinates"
+  },
+  {
+    "id": "FAIL-003",
+    "failure": "Inventory database mismatch",
+    "impact": "Warehouse stock levels inaccurate",
+    "severity": "High",
+    "detected_by": "Inventory Validation Agent",
+    "system_response": "Pause automated dispatch"
+  },
+  {
+    "id": "FAIL-004",
+    "failure": "Low confidence demand forecast",
+    "impact": "AI unable to safely recommend pricing adjustments",
+    "severity": "Medium",
+    "detected_by": "Forecast Analysis Agent",
+    "system_response": "Escalate to human analyst"
+  },
+  {
+    "id": "FAIL-005",
+    "failure": "No delivery trucks available",
+    "impact": "Orders delayed in northern region",
+    "severity": "High",
+    "detected_by": "Fleet Coordination Agent",
+    "system_response": "Trigger third-party logistics fallback"
+  },
+  {
+    "id": "FAIL-006",
+    "failure": "Contradictory shipment reports detected",
+    "impact": "Shipment status unreliable",
+    "severity": "Medium",
+    "detected_by": "Verification Agent",
+    "system_response": "Request manual confirmation"
+  },
+  {
+    "id": "FAIL-007",
+    "failure": "Customer notification API failure",
+    "impact": "Delivery updates not sent",
+    "severity": "Medium",
+    "detected_by": "Notification Agent",
+    "system_response": "Queue retry mechanism"
+  },
+  {
+    "id": "FAIL-008",
+    "failure": "Rerouting optimization failed",
+    "impact": "Traffic-based route adjustment unavailable",
+    "severity": "High",
+    "detected_by": "Optimization Agent",
+    "system_response": "Restore previous stable route"
+  },
+  {
+    "id": "FAIL-009",
+    "failure": "Warehouse temperature sensor offline",
+    "impact": "Cold-chain integrity at risk",
+    "severity": "Critical",
+    "detected_by": "IoT Monitoring Agent",
+    "system_response": "Freeze sensitive dispatch operations"
+  },
+  {
+    "id": "FAIL-010",
+    "failure": "Duplicate dispatch orders generated",
+    "impact": "Risk of double shipment",
+    "severity": "Critical",
+    "detected_by": "Dispatch Validation Agent",
+    "system_response": "Cancel duplicate dispatch automatically"
+  }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "id": "COMP-001",
+        "category": "Sales",
+        "location": "Karachi",
+        "issue": "Delayed Delivery",
+        "severity": "High",
+        "signal": "Retail Partner A complains of delivery delays due to flooded roads."
+    },
+    {
+        "id": "COMP-002",
+        "category": "Sales",
+        "location": "Lahore",
+        "issue": "Late Arrival",
+        "severity": "Medium",
+        "signal": "Electronics Store B logs escalation regarding a late arrival package."
+    },
+    {
+        "id": "COMP-003",
+        "category": "Sales",
+        "location": "Islamabad",
+        "issue": "Driver Unreachable",
+        "severity": "High",
+        "signal": "Medical Supplier C reports driver was completely unreachable during drop-off window."
+    },
+    {
+        "id": "COMP-004",
+        "category": "Sales",
+        "location": "Hyderabad",
+        "issue": "Storm Delay",
+        "severity": "Medium",
+        "signal": "Fashion Outlet D reports shipment delay following localized storm impact."
+    },
+    {
+        "id": "COMP-005",
+        "category": "Sales",
+        "location": "Faisalabad",
+        "issue": "Damaged Cargo",
+        "severity": "High",
+        "signal": "Wholesale Market E logs high-severity claim for goods damaged during transit."
+    },
+    {
+        "id": "COMP-006",
+        "category": "Sales",
+        "location": "Karachi",
+        "issue": "Telemetry Mismatch",
+        "severity": "Low",
+        "signal": "Retail Partner F notes tracking data status is showing incorrect details."
+    },
+    {
+        "id": "COMP-007",
+        "category": "Sales",
+        "location": "Multan",
+        "issue": "Spoiled Inventory",
+        "severity": "High",
+        "signal": "Food Distributor G complains that perishable goods spoiled due to transit conditions."
+    },
+    {
+        "id": "COMP-008",
+        "category": "Sales",
+        "location": "Peshawar",
+        "issue": "No Driver Assigned",
+        "severity": "Medium",
+        "signal": "Hardware Supplier H signals logistics block as no driver was assigned for pickup."
+    },
+    {
+        "id": "COMP-009",
+        "category": "Sales",
+        "location": "Quetta",
+        "issue": "Cancelled Order",
+        "severity": "High",
+        "signal": "Retail Chain I shipment was cancelled entirely due to blocked routes."
+    },
+    {
+        "id": "COMP-010",
+        "category": "Sales",
+        "location": "Pharmacy Group J",
+        "issue": "SLA Failure",
+        "severity": "High",
+        "signal": "Pharmacy Group J reports critical medical supply dispatch missed SLA window."
+    }
+]
