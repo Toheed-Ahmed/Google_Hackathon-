@@ -57,7 +57,6 @@ class _InputScreenState extends State<InputScreen> {
           _alertLevel = "FAILURE_RECOVERED";
         });
       } else {
-
         final activeWorkflow = data.firstWhere(
           (w) => w['workflow_id'] == 'OP-SYNC-9003',
           orElse: () => data[0],
@@ -82,9 +81,9 @@ class _InputScreenState extends State<InputScreen> {
     } catch (e) {
       debugPrint("Alert validation engine mismatch: $e");
     }
-  }
+  } 
 
-  Future<void> _pickFile() async {
+Future<void> _pickFile() async {
     try {
       FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.custom,
@@ -95,20 +94,24 @@ class _InputScreenState extends State<InputScreen> {
         setState(() {
           _selectedFileName = result.files.single.name;
           String fn = _selectedFileName!.toLowerCase();
-          if (fn.contains('rain') ||
-              fn.contains('flood') ||
-              fn.contains('weather')) {
-            _controller.text =
-                "Karachi Weather Alert: Severe rainstorm causing flash floods. Fleet paralyzed in Southern Zone. Logistics nodes failing.";
+          
+          // 🚨 FIX: Purana text delete karne ke bajaye, naya data sath me APPEND (add) karein
+          String newTelemetry = "";
+          if (fn.contains('rain') || fn.contains('flood') || fn.contains('weather')) {
+            newTelemetry = " [FILE SYSTEM]: Karachi Weather Alert: Severe rainstorm causing flash floods. Fleet paralyzed in Southern Zone. Logistics nodes failing.";
           } else if (fn.contains('port') || fn.contains('strike')) {
-            _controller.text =
-                "Port strike alert: All clearances stalled at primary maritime terminals. Supply chain disruption imminent.";
+            newTelemetry = " [FILE SYSTEM]: Port strike alert: All clearances stalled at primary maritime terminals. Supply chain disruption imminent.";
           } else if (fn.contains('fuel') || fn.contains('price')) {
-            _controller.text =
-                "Macro-economic shift: Fuel prices spike by 18% nationwide, damaging variable transport margins.";
+            newTelemetry = " [FILE SYSTEM]: Macro-economic shift: Fuel prices spike by 18% nationwide, damaging variable transport margins.";
           } else {
-            _controller.text =
-                "Ingesting external data report [$_selectedFileName]: High-density network infrastructure anomaly discovered.";
+            newTelemetry = " [FILE SYSTEM]: Ingesting external data report [$_selectedFileName]: High-density network infrastructure anomaly discovered.";
+          }
+
+          // Agar box pehle se khali nahi hai, toh space de kar aage text jod dein
+          if (_controller.text.trim().isNotEmpty) {
+            _controller.text = _controller.text + "\n\n" + newTelemetry;
+          } else {
+            _controller.text = newTelemetry;
           }
         });
       }
@@ -465,84 +468,125 @@ class _InputScreenState extends State<InputScreen> {
 
               const SizedBox(height: 45),
 
-// 🚨 ULTIMATE ZERO-TRUST INPUT STREAM GATEKEEPER
+              // 🚨 ULTIMATE ZERO-TRUST INPUT STREAM GATEKEEPER
               SizedBox(
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: isInputEmpty 
-                    ? null 
-                    : () {
-                        final String text = _controller.text.toLowerCase();
-                        
-                        // 1. Strict filter for 100% verified enterprise scenarios only
-                        // Agar inme se koi ek lafz bhi text me nahi hoga, toh data out-of-domain ya corrupt mana jayega.
-                        bool isValidScenario = text.contains('rain') || text.contains('flood') || 
-                                              text.contains('weather') || text.contains('port') || 
-                                              text.contains('strike') || text.contains('fuel') || 
-                                              text.contains('price') || text.contains('fuel price') ||
-                                              text.contains('fail') || text.contains('rollback') || 
-                                              text.contains('coordinate') || text.contains('recovery') ||
-                                              text.contains('halt') || text.contains('authorization') ||
-                                              text.contains('escrow');
+                  onPressed: isInputEmpty
+                      ? null
+                      : () {
+                          final String text = _controller.text.toLowerCase();
 
-                        // 🛑 CRITICAL ADAPTATION: Agar data corrupted ho YA bilkul hi out-of-domain ho (!isValidScenario)
-                        bool isCorruptedOrOutOfDomain = text.contains('testing') || 
-                                                        text.contains('matrix') || 
-                                                        !isValidScenario;
+                          // 1. Strict filter for 100% verified enterprise scenarios only
+                          // Agar inme se koi ek lafz bhi text me nahi hoga, toh data out-of-domain ya corrupt mana jayega.
+                          bool isValidScenario =
+                              text.contains('rain') ||
+                              text.contains('flood') ||
+                              text.contains('weather') ||
+                              text.contains('port') ||
+                              text.contains('strike') ||
+                              text.contains('fuel') ||
+                              text.contains('price') ||
+                              text.contains('fuel price') ||
+                              text.contains('fail') ||
+                              text.contains('rollback') ||
+                              text.contains('coordinate') ||
+                              text.contains('recovery') ||
+                              text.contains('halt') ||
+                              text.contains('authorization') ||
+                              text.contains('escrow');
 
-                        if (isCorruptedOrOutOfDomain) {
-                          // 🛑 STOPS ALL PROCESSING IMMEDIATELY: Never allow to push to FlowScreen
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) => AlertDialog(
-                              backgroundColor: const Color(0xFF111827),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: const BorderSide(color: Color(0xFFEF4444), width: 1.5), // Glowing Alert Red Border
-                              ),
-                              title: Row(
-                                children: const [
-                                  Icon(Icons.gpp_bad_rounded, color: Color(0xFFEF4444), size: 24),
-                                  SizedBox(width: 10),
-                                  Text("Pipeline Ingestion Fault", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                          // 🛑 CRITICAL ADAPTATION: Agar data corrupted ho YA bilkul hi out-of-domain ho (!isValidScenario)
+                          bool isCorruptedOrOutOfDomain =
+                              text.contains('testing') ||
+                              text.contains('matrix') ||
+                              !isValidScenario;
+
+                          if (isCorruptedOrOutOfDomain) {
+                            // 🛑 STOPS ALL PROCESSING IMMEDIATELY: Never allow to push to FlowScreen
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => AlertDialog(
+                                backgroundColor: const Color(0xFF111827),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  side: const BorderSide(
+                                    color: Color(0xFFEF4444),
+                                    width: 1.5,
+                                  ), // Glowing Alert Red Border
+                                ),
+                                title: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.gpp_bad_rounded,
+                                      color: Color(0xFFEF4444),
+                                      size: 24,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Pipeline Ingestion Fault",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                content: const Text(
+                                  "❌ CRITICAL DISCREPANCY DETECTED:\n\nPayload Stream Validation Failed! The provided telemetry data format is corrupted, out of domain, or contains missing contextual matrices. Initializing engine aborted for system safety.",
+                                  style: TextStyle(
+                                    color: Color(0xFFE5E7EB),
+                                    fontSize: 13,
+                                    height: 1.5,
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text(
+                                      "Re-initialize Input Stream",
+                                      style: TextStyle(
+                                        color: Color(0xFF60A5FA),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                              content: const Text(
-                                "❌ CRITICAL DISCREPANCY DETECTED:\n\nPayload Stream Validation Failed! The provided telemetry data format is corrupted, out of domain, or contains missing contextual matrices. Initializing engine aborted for system safety.",
-                                style: TextStyle(color: Color(0xFFE5E7EB), fontSize: 13, height: 1.5),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text("Re-initialize Input Stream", style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12, fontWeight: FontWeight.bold)),
+                            );
+                          } else {
+                            // Proceed to animation pipeline ONLY if data is within logistics domains
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FlowScreen(
+                                  userInput: _controller.text,
+                                  isAutonomousMode: _isAutonomousActiveMode,
                                 ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          // Proceed to animation pipeline ONLY if data is within logistics domains
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FlowScreen(
-                                userInput: _controller.text, 
-                                isAutonomousMode: _isAutonomousActiveMode,
                               ),
-                            ),
-                          );
-                        }
-                      },
+                            );
+                          }
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
                     disabledBackgroundColor: Colors.white.withOpacity(0.02),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     elevation: 0,
                   ),
                   child: Text(
                     'Initialize Pipeline Engine',
-                    style: TextStyle(color: isInputEmpty ? Colors.white24 : Colors.white, fontSize: 15, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                    style: TextStyle(
+                      color: isInputEmpty ? Colors.white24 : Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
                   ),
                 ),
               ),
@@ -566,12 +610,19 @@ class _InputScreenState extends State<InputScreen> {
       disabledColor: const Color(0xFF030712),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: Colors.white.withOpacity(0.04), width: 1),
+        side: BorderSide(
+          color: Colors.white.withOpacity(0.04),
+          width: 1,
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       onPressed: () => setState(() {
-        _selectedFileName = null;
-        _controller.text = text;
+        // 🚨 FIX: Purana text clear nahi hoga, text aage add hota chala jayega!
+        if (_controller.text.trim().isNotEmpty) {
+          _controller.text = _controller.text + "\n\n" + text;
+        } else {
+          _controller.text = text;
+        }
       }),
     );
   }
