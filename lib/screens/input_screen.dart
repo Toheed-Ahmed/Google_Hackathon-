@@ -14,8 +14,8 @@ class InputScreen extends StatefulWidget {
 class _InputScreenState extends State<InputScreen> {
   final TextEditingController _controller = TextEditingController();
   String? _selectedFileName;
-  
-  bool _isAutonomousActiveMode = true; 
+
+  bool _isAutonomousActiveMode = true;
   bool _hasActiveSystemAlert = false;
   String _alertMessage = "";
   String _alertLevel = "";
@@ -35,18 +35,49 @@ class _InputScreenState extends State<InputScreen> {
 
   Future<void> _checkSystemAlertsFromJSON() async {
     try {
-      final String response = await rootBundle.loadString('assets/execution_trace.json');
+      final String response = await rootBundle.loadString(
+        'assets/execution_trace.json',
+      );
       final List<dynamic> data = json.decode(response);
-      final activeWorkflow = data.firstWhere((w) => w['workflow_id'] == 'OP-SYNC-9003', orElse: () => data[0]);
-      final trace = activeWorkflow['execution_trace'] as List<dynamic>;
-      final alertAgent = trace.firstWhere((element) => element['agent'] == 'Alert Agent', orElse: () => null);
-      
-      if (alertAgent != null && alertAgent['output']['alert_generated'] == true) {
+
+      final failureWorkflow = data.firstWhere(
+        (w) =>
+            w['workflow_id'] == 'OP-SYNC-9004' ||
+            w['final_state']['status'] == 'FAILURE_RECOVERED',
+        orElse: () => null,
+      );
+
+      if (failureWorkflow != null) {
         setState(() {
           _hasActiveSystemAlert = true;
-          _alertMessage = alertAgent['output']['alert_message'] ?? "Multi-domain risk cascade detected.";
-          _alertLevel = alertAgent['output']['alert_level'] ?? "CRITICAL";
+          _alertMessage =
+              "CRITICAL METRIC OVERRIDE: " +
+              (failureWorkflow['final_state']['summary'] ??
+                  "System runtime failure intercepted.");
+          _alertLevel = "FAILURE_RECOVERED";
         });
+      } else {
+
+        final activeWorkflow = data.firstWhere(
+          (w) => w['workflow_id'] == 'OP-SYNC-9003',
+          orElse: () => data[0],
+        );
+        final trace = activeWorkflow['execution_trace'] as List<dynamic>;
+        final alertAgent = trace.firstWhere(
+          (element) => element['agent'] == 'Alert Agent',
+          orElse: () => null,
+        );
+
+        if (alertAgent != null &&
+            alertAgent['output']['alert_generated'] == true) {
+          setState(() {
+            _hasActiveSystemAlert = true;
+            _alertMessage =
+                alertAgent['output']['alert_message'] ??
+                "Multi-domain risk cascade detected.";
+            _alertLevel = alertAgent['output']['alert_level'] ?? "CRITICAL";
+          });
+        }
       }
     } catch (e) {
       debugPrint("Alert validation engine mismatch: $e");
@@ -55,7 +86,7 @@ class _InputScreenState extends State<InputScreen> {
 
   Future<void> _pickFile() async {
     try {
-       FilePickerResult? result = await FilePicker.pickFiles(
+      FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf', 'csv', 'txt', 'docx'],
       );
@@ -64,14 +95,20 @@ class _InputScreenState extends State<InputScreen> {
         setState(() {
           _selectedFileName = result.files.single.name;
           String fn = _selectedFileName!.toLowerCase();
-          if (fn.contains('rain') || fn.contains('flood') || fn.contains('weather')) {
-            _controller.text = "Karachi Weather Alert: Severe rainstorm causing flash floods. Fleet paralyzed in Southern Zone. Logistics nodes failing.";
+          if (fn.contains('rain') ||
+              fn.contains('flood') ||
+              fn.contains('weather')) {
+            _controller.text =
+                "Karachi Weather Alert: Severe rainstorm causing flash floods. Fleet paralyzed in Southern Zone. Logistics nodes failing.";
           } else if (fn.contains('port') || fn.contains('strike')) {
-            _controller.text = "Port strike alert: All clearances stalled at primary maritime terminals. Supply chain disruption imminent.";
+            _controller.text =
+                "Port strike alert: All clearances stalled at primary maritime terminals. Supply chain disruption imminent.";
           } else if (fn.contains('fuel') || fn.contains('price')) {
-            _controller.text = "Macro-economic shift: Fuel prices spike by 18% nationwide, damaging variable transport margins.";
+            _controller.text =
+                "Macro-economic shift: Fuel prices spike by 18% nationwide, damaging variable transport margins.";
           } else {
-            _controller.text = "Ingesting external data report [$_selectedFileName]: High-density network infrastructure anomaly discovered.";
+            _controller.text =
+                "Ingesting external data report [$_selectedFileName]: High-density network infrastructure anomaly discovered.";
           }
         });
       }
@@ -87,8 +124,15 @@ class _InputScreenState extends State<InputScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF030712), // Deeper premium gray/black
       appBar: AppBar(
-        title: const Text('OpsPilot AI Console',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, letterSpacing: 1.5, fontSize: 15)),
+        title: const Text(
+          'OpsPilot AI Console',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.5,
+            fontSize: 15,
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -100,19 +144,33 @@ class _InputScreenState extends State<InputScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- PRE-EXECUTION THREAT BANNER ---
+              // --- PRE-EXECUTION THREAT BANNER (DYNAMIC COLOR OVERHAUL) ---
               if (_hasActiveSystemAlert) ...[
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF7F1D1D).withOpacity(0.15),
+                    color: _alertLevel == "FAILURE_RECOVERED"
+                        ? Colors.amber.withOpacity(0.08)
+                        : const Color(0xFF7F1D1D).withOpacity(0.15),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFEF4444).withOpacity(0.25)),
+                    border: Border.all(
+                      color: _alertLevel == "FAILURE_RECOVERED"
+                          ? Colors.amberAccent.withOpacity(0.25)
+                          : const Color(0xFFEF4444).withOpacity(0.25),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.gpp_bad_rounded, color: Color(0xFFF87171), size: 22),
+                      Icon(
+                        _alertLevel == "FAILURE_RECOVERED"
+                            ? Icons.notifications_active_rounded
+                            : Icons.gpp_bad_rounded,
+                        color: _alertLevel == "FAILURE_RECOVERED"
+                            ? Colors.amberAccent
+                            : const Color(0xFFF87171),
+                        size: 22,
+                      ),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Column(
@@ -120,14 +178,39 @@ class _InputScreenState extends State<InputScreen> {
                           children: [
                             Row(
                               children: [
-                                Text("SYSTEM DISRUPTION ALERT • $_alertLevel", 
-                                  style: const TextStyle(color: Color(0xFFF87171), fontWeight: FontWeight.w800, fontSize: 10, letterSpacing: 1.2)),
+                                Text(
+                                  "SYSTEM DISRUPTION ALERT • $_alertLevel",
+                                  style: TextStyle(
+                                    color: _alertLevel == "FAILURE_RECOVERED"
+                                        ? Colors.amberAccent
+                                        : const Color(0xFFF87171),
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 10,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
                                 const Spacer(),
-                                const SizedBox(width: 8, height: 8, child: CircularProgressIndicator(strokeWidth: 1.5, color: Color(0xFFF87171))),
+                                SizedBox(
+                                  width: 8,
+                                  height: 8,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 1.5,
+                                    color: _alertLevel == "FAILURE_RECOVERED"
+                                        ? Colors.amberAccent
+                                        : const Color(0xFFF87171),
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8),
-                            Text(_alertMessage, style: const TextStyle(color: Color(0xFFE5E7EB), fontSize: 13, height: 1.5)),
+                            Text(
+                              _alertMessage,
+                              style: const TextStyle(
+                                color: Color(0xFFE5E7EB),
+                                fontSize: 13,
+                                height: 1.5,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -150,12 +233,18 @@ class _InputScreenState extends State<InputScreen> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: _isAutonomousActiveMode ? const Color(0xFFD97706).withOpacity(0.1) : const Color(0xFF2563EB).withOpacity(0.1),
+                        color: _isAutonomousActiveMode
+                            ? const Color(0xFFD97706).withOpacity(0.1)
+                            : const Color(0xFF2563EB).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
-                        _isAutonomousActiveMode ? Icons.bolt_rounded : Icons.shield_rounded,
-                        color: _isAutonomousActiveMode ? const Color(0xFFF59E0B) : const Color(0xFF60A5FA),
+                        _isAutonomousActiveMode
+                            ? Icons.bolt_rounded
+                            : Icons.shield_rounded,
+                        color: _isAutonomousActiveMode
+                            ? const Color(0xFFF59E0B)
+                            : const Color(0xFF60A5FA),
                         size: 20,
                       ),
                     ),
@@ -165,13 +254,25 @@ class _InputScreenState extends State<InputScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _isAutonomousActiveMode ? "Autonomous Action Engine" : "Shadow Co-Pilot Compliance",
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14),
+                            _isAutonomousActiveMode
+                                ? "Autonomous Action Engine"
+                                : "Shadow Co-Pilot Compliance",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            _isAutonomousActiveMode ? "Direct orchestration without manual pipeline locks." : "AI generates mitigation routes holding execution signatures.",
-                            style: TextStyle(color: Colors.grey[400], fontSize: 11, height: 1.3),
+                            _isAutonomousActiveMode
+                                ? "Direct orchestration without manual pipeline locks."
+                                : "AI generates mitigation routes holding execution signatures.",
+                            style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 11,
+                              height: 1.3,
+                            ),
                           ),
                         ],
                       ),
@@ -179,19 +280,35 @@ class _InputScreenState extends State<InputScreen> {
                     Switch(
                       value: _isAutonomousActiveMode,
                       activeColor: const Color(0xFFF59E0B),
-                      activeTrackColor: const Color(0xFFF59E0B).withOpacity(0.15),
+                      activeTrackColor: const Color(
+                        0xFFF59E0B,
+                      ).withOpacity(0.15),
                       inactiveThumbColor: const Color(0xFF60A5FA),
-                      inactiveTrackColor: const Color(0xFF60A5FA).withOpacity(0.15),
-                      onChanged: (val) => setState(() => _isAutonomousActiveMode = val),
+                      inactiveTrackColor: const Color(
+                        0xFF60A5FA,
+                      ).withOpacity(0.15),
+                      onChanged: (val) =>
+                          setState(() => _isAutonomousActiveMode = val),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 35),
 
-              const Text('Anomalous Stream Ingestion', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5)),
+              const Text(
+                'Anomalous Stream Ingestion',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.5,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('Deploy multi-agent semantic synthesis for live incident mitigations.', style: TextStyle(color: Colors.grey[400], fontSize: 13)),
+              Text(
+                'Deploy multi-agent semantic synthesis for live incident mitigations.',
+                style: TextStyle(color: Colors.grey[400], fontSize: 13),
+              ),
               const SizedBox(height: 28),
 
               // --- TEXT AREA PANEL ---
@@ -204,15 +321,33 @@ class _InputScreenState extends State<InputScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 14,
+                      ),
                       child: Row(
                         children: [
-                          const Icon(Icons.hub_outlined, color: Color(0xFF60A5FA), size: 16),
+                          const Icon(
+                            Icons.hub_outlined,
+                            color: Color(0xFF60A5FA),
+                            size: 16,
+                          ),
                           const SizedBox(width: 10),
-                          const Text("Data Ingestion Stream", style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 13)),
+                          const Text(
+                            "Data Ingestion Stream",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                            ),
+                          ),
                           const Spacer(),
                           IconButton(
-                            icon: const Icon(Icons.cloud_upload_outlined, color: Color(0xFF60A5FA), size: 20),
+                            icon: const Icon(
+                              Icons.cloud_upload_outlined,
+                              color: Color(0xFF60A5FA),
+                              size: 20,
+                            ),
                             onPressed: _pickFile,
                           ),
                         ],
@@ -222,11 +357,19 @@ class _InputScreenState extends State<InputScreen> {
                     TextField(
                       controller: _controller,
                       maxLines: 5,
-                      style: const TextStyle(color: Colors.white, fontSize: 14, height: 1.5),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
                       cursorColor: const Color(0xFF3B82F6),
                       decoration: InputDecoration(
-                        hintText: "Paste logistics logs, telemetry inputs, or click upload...",
-                        hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        hintText:
+                            "Paste logistics logs, telemetry inputs, or click upload...",
+                        hintStyle: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 14,
+                        ),
                         contentPadding: const EdgeInsets.all(22),
                         border: InputBorder.none,
                       ),
@@ -239,22 +382,45 @@ class _InputScreenState extends State<InputScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 14),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF3B82F6).withOpacity(0.06),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFF3B82F6).withOpacity(0.2)),
+                      border: Border.all(
+                        color: const Color(0xFF3B82F6).withOpacity(0.2),
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.insert_drive_file_outlined, color: Color(0xFF60A5FA), size: 14),
+                        const Icon(
+                          Icons.insert_drive_file_outlined,
+                          color: Color(0xFF60A5FA),
+                          size: 14,
+                        ),
                         const SizedBox(width: 8),
-                        Text(_selectedFileName!, style: const TextStyle(color: Color(0xFF60A5FA), fontSize: 12, fontWeight: FontWeight.w600)),
+                        Text(
+                          _selectedFileName!,
+                          style: const TextStyle(
+                            color: Color(0xFF60A5FA),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         const SizedBox(width: 10),
                         GestureDetector(
-                          onTap: () => setState(() { _selectedFileName = null; _controller.clear(); }),
-                          child: const Icon(Icons.cancel_outlined, color: Color(0xFF60A5FA), size: 14),
+                          onTap: () => setState(() {
+                            _selectedFileName = null;
+                            _controller.clear();
+                          }),
+                          child: const Icon(
+                            Icons.cancel_outlined,
+                            color: Color(0xFF60A5FA),
+                            size: 14,
+                          ),
                         ),
                       ],
                     ),
@@ -262,21 +428,44 @@ class _InputScreenState extends State<InputScreen> {
                 ),
 
               const SizedBox(height: 35),
-              const Text('SIMULATION WORKLOAD TARGETS', style: TextStyle(color: Color.fromARGB(95, 0, 0, 0), fontWeight: FontWeight.w800, fontSize: 11, letterSpacing: 1.5)),
+              const Text(
+                'SIMULATION WORKLOAD TARGETS',
+                style: TextStyle(
+                  color: Colors.white38, // Fixed light background trace line
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11,
+                  letterSpacing: 1.5,
+                ),
+              ),
               const SizedBox(height: 14),
-              
+
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
                 children: [
-                  _buildScenarioChip('Cascading Floods', "Heavy Rain & Flooding paralyzing fleet transit. Karachi Central warehouse reporting stock failures."),
-                  _buildScenarioChip('Port Strike Logistics', "Major container clearance strike. Southern region logistics blocked."),
-                  _buildScenarioChip('Fuel Margin Strain', "Macro price index surge of 18% forcing variable expense spikes."),
+                  _buildScenarioChip(
+                    'Cascading Floods',
+                    "Heavy Rain & Flooding paralyzing fleet transit. Karachi Central warehouse reporting stock failures.",
+                  ),
+                  _buildScenarioChip(
+                    'Port Strike Logistics',
+                    "Major container clearance strike. Southern region logistics blocked.",
+                  ),
+                  _buildScenarioChip(
+                    'Fuel Margin Strain',
+                    "Macro price index surge of 18% forcing variable expense spikes.",
+                  ),
+                  // Added 4th scenario shortcut for testing the failure model live
+                  _buildScenarioChip(
+                    'Failure Recovery Loop',
+                    "Triggering coordinate transmission anomaly. Tracking failure isolation parameters, active monitoring logs, and final automated state rollback execution.",
+                  ),
                 ],
               ),
 
               const SizedBox(height: 45),
-              
+
+// 🚨 ULTIMATE ZERO-TRUST INPUT STREAM GATEKEEPER
               SizedBox(
                 width: double.infinity,
                 height: 54,
@@ -284,15 +473,66 @@ class _InputScreenState extends State<InputScreen> {
                   onPressed: isInputEmpty 
                     ? null 
                     : () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FlowScreen(
-                              userInput: _controller.text, 
-                              isAutonomousMode: _isAutonomousActiveMode
+                        final String text = _controller.text.toLowerCase();
+                        
+                        // 1. Strict filter for 100% verified enterprise scenarios only
+                        // Agar inme se koi ek lafz bhi text me nahi hoga, toh data out-of-domain ya corrupt mana jayega.
+                        bool isValidScenario = text.contains('rain') || text.contains('flood') || 
+                                              text.contains('weather') || text.contains('port') || 
+                                              text.contains('strike') || text.contains('fuel') || 
+                                              text.contains('price') || text.contains('fuel price') ||
+                                              text.contains('fail') || text.contains('rollback') || 
+                                              text.contains('coordinate') || text.contains('recovery') ||
+                                              text.contains('halt') || text.contains('authorization') ||
+                                              text.contains('escrow');
+
+                        // 🛑 CRITICAL ADAPTATION: Agar data corrupted ho YA bilkul hi out-of-domain ho (!isValidScenario)
+                        bool isCorruptedOrOutOfDomain = text.contains('testing') || 
+                                                        text.contains('matrix') || 
+                                                        !isValidScenario;
+
+                        if (isCorruptedOrOutOfDomain) {
+                          // 🛑 STOPS ALL PROCESSING IMMEDIATELY: Never allow to push to FlowScreen
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => AlertDialog(
+                              backgroundColor: const Color(0xFF111827),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(color: Color(0xFFEF4444), width: 1.5), // Glowing Alert Red Border
+                              ),
+                              title: Row(
+                                children: const [
+                                  Icon(Icons.gpp_bad_rounded, color: Color(0xFFEF4444), size: 24),
+                                  SizedBox(width: 10),
+                                  Text("Pipeline Ingestion Fault", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                              content: const Text(
+                                "❌ CRITICAL DISCREPANCY DETECTED:\n\nPayload Stream Validation Failed! The provided telemetry data format is corrupted, out of domain, or contains missing contextual matrices. Initializing engine aborted for system safety.",
+                                style: TextStyle(color: Color(0xFFE5E7EB), fontSize: 13, height: 1.5),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text("Re-initialize Input Stream", style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12, fontWeight: FontWeight.bold)),
+                                ),
+                              ],
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          // Proceed to animation pipeline ONLY if data is within logistics domains
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FlowScreen(
+                                userInput: _controller.text, 
+                                isAutonomousMode: _isAutonomousActiveMode,
+                              ),
+                            ),
+                          );
+                        }
                       },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
@@ -313,33 +553,26 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
-Widget _buildScenarioChip(String label, String text) {
+  Widget _buildScenarioChip(String label, String text) {
     return ActionChip(
       label: Text(label),
       labelStyle: const TextStyle(
-        color: Colors.white70, // Subtly crisp white text
-        fontSize: 12, 
+        color: Colors.white70,
+        fontSize: 12,
         fontWeight: FontWeight.w600,
-        letterSpacing: 0.2
+        letterSpacing: 0.2,
       ),
-      // 🎨 ULTRA-DARKISH OVERHAUL: Pure solid background with zero light gray ash
-      backgroundColor: const Color(0xFF111827).withOpacity(0.85), 
+      backgroundColor: const Color(0xFF111827).withOpacity(0.85),
       disabledColor: const Color(0xFF030712),
-      
-      // BORDERS: Intentionally thinned out and darkened borders
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10), 
-        side: BorderSide(
-          color: Colors.white.withOpacity(0.04), // Darkened border line
-          width: 1,
-        )
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.white.withOpacity(0.04), width: 1),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      onPressed: () => setState(() { _selectedFileName = null; _controller.text = text; }),
+      onPressed: () => setState(() {
+        _selectedFileName = null;
+        _controller.text = text;
+      }),
     );
   }
 }
-
-
-
-
